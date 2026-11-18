@@ -1,175 +1,80 @@
 
-# List Making App
-
-todo_list = []
-completed_list = []
-
-previous_todo = []
-previous_completed = []
+my_list = []
+old_list = []
 has_undo = False
 
 while True:
-    print("\n===== TO-DO LIST APP =====")
+    print("\n------ HELENE THE QUEEN'S LIST APP ------")
     print("1. Add an Item")
     print("2. Remove an Item")
-    print("3. Display a List")  
+    print("3. Display the List")
     print("4. Undo Previous Change")
-    print("5. Replace an Item")
-    print("6. Check Off an Item")
-    print("7. Exit")
+    print("5. Exit")
 
-    choice = input("Choose an option (1-7): ")
+    choice = input("What would you like to do? <3  ")
 
-    # Add an item
     if choice == "1":
-        item = input("Enter the item you want to add: ")
+        item = input("What item do you want to add? ")
 
         if item.strip() == "":
-            print("You cannot add an empty item.")
+            print("You can't add an empty item!")
 
         else:
-            previous_todo = todo_list.copy()
-            previous_completed = completed_list.copy()
+            old_list = my_list.copy()
+            my_list.append(item)
             has_undo = True
 
-            todo_list.append(item)
             print("Item added!")
 
-    # Remove an item
     elif choice == "2":
-        if len(todo_list) == 0:
-            print("Your to-do list is empty.")
+        if len(my_list) == 0:
+            print("Your list is empty!!! >: ")
 
         else:
-            print("\nYour To-Do List:")
-            for i in range(len(todo_list)):
-                print(i, "-", todo_list[i])
+            print("\nHere is your list:")
+
+            for i in range(len(my_list)):
+                print(i, my_list[i])
 
             try:
-                index = int(input("Enter the index of the item to remove: "))
+                index = int(input("Enter the index of the item you want to remove: "))
 
-                if index < 0 or index >= len(todo_list):
-                    print("Invalid index. Try again.")
-
-                else:
-                    previous_todo = todo_list.copy()
-                    previous_completed = completed_list.copy()
+                if index >= 0 and index < len(my_list):
+                    old_list = my_list.copy()
+                    my_list.pop(index)
                     has_undo = True
 
-                    removed_item = todo_list.pop(index)
-                    print(removed_item, "was removed!")
+                    print("Item removed!")
+
+                else:
+                    print("That index doesn't exist!")
 
             except ValueError:
-                print("Please enter a number.")
+                print("Please enter a number!")
 
-    # Display a list
     elif choice == "3":
-        print("\n1. View To-Do List")
-        print("2. View Completed List")
-
-        view_choice = input("Which list would you like to see? ")
-
-        if view_choice == "1":
-            print("\n--- TO-DO LIST ---")
-
-            if len(todo_list) == 0:
-                print("No unfinished items.")
-
-            else:
-                for i in range(len(todo_list)):
-                    print(i, "-", todo_list[i])
-
-        elif view_choice == "2":
-            print("\n--- COMPLETED LIST ---")
-
-            if len(completed_list) == 0:
-                print("No completed items.")
-
-            else:
-                for i in range(len(completed_list)):
-                    print(i, "-", completed_list[i])
+        if len(my_list) == 0:
+            print("Your list is empty!")
 
         else:
-            print("Invalid choice.")
+            print("\nYour List:")
 
-    # Undo the previous change
+            for item in my_list:
+                print(item)
+
     elif choice == "4":
         if has_undo:
-            todo_list = previous_todo.copy()
-            completed_list = previous_completed.copy()
-
+            my_list = old_list.copy()
             has_undo = False
-            print("Your previous change has been undone!")
+
+            print("Your last change has been undone  yay <: ")
 
         else:
-            print("There is nothing to undo.")
+            print("There is nothing to undo!")
 
-    # Replace an item
     elif choice == "5":
-        if len(todo_list) == 0:
-            print("Your to-do list is empty.")
-
-        else:
-            print("\nYour To-Do List:")
-            for i in range(len(todo_list)):
-                print(i, "-", todo_list[i])
-
-            try:
-                index = int(input("Enter the index of the item to replace: "))
-
-                if index < 0 or index >= len(todo_list):
-                    print("Invalid index. Try again.")
-
-                else:
-                    new_item = input("Enter the new item: ")
-
-                    if new_item.strip() == "":
-                        print("You cannot enter an empty item.")
-
-                    else:
-                        previous_todo = todo_list.copy()
-                        previous_completed = completed_list.copy()
-                        has_undo = True
-
-                        todo_list[index] = new_item
-                        print("Item replaced!")
-
-            except ValueError:
-                print("Please enter a number.")
-
-    # Check off an item
-    elif choice == "6":
-        if len(todo_list) == 0:
-            print("Your to-do list is empty.")
-
-        else:
-            print("\nYour To-Do List:")
-            for i in range(len(todo_list)):
-                print(i, "-", todo_list[i])
-
-            try:
-                index = int(input("Enter the index of the item to complete: "))
-
-                if index < 0 or index >= len(todo_list):
-                    print("Invalid index. Try again.")
-
-                else:
-                    previous_todo = todo_list.copy()
-                    previous_completed = completed_list.copy()
-                    has_undo = True
-
-                    finished_item = todo_list.pop(index)
-                    completed_list.append(finished_item)
-
-                    print(f"'{finished_item}' has been completed!")
-
-            except ValueError:
-                print("Please enter a number.")
-
-    # Exit
-    elif choice == "7":
-        print("Thanks for using the To-Do List App!")
+        print("Thanks for using Helene the Queen's List App!")
         break
 
     else:
-        print("Invalid menu choice. Please choose 1-7.")
+        print("Invalid choice. Please try again >: !!")
